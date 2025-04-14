@@ -1,0 +1,7 @@
+= Excel.Workbook(Web.Contents(""), null, true)
+
+https://planaltopr-my.sharepoint.com/personal/lucas_bruno_presidencia_gov_br/Documents/Dados%20PowerBI/DadosBI%20-%20Geo.xlsx
+
+https://planaltopr-my.sharepoint.com/personal/lucas_bruno_presidencia_gov_br/Documents/Dados%20PowerBI/Planilha%20Monitoramento_PPI%20-%20Carregamento%20-%20BI%202025%20-%201.xlsx
+
+https://planaltopr-my.sharepoint.com/personal/lucas_bruno_presidencia_gov_br/Documents/Dados%20PowerBI/Riscos%20-%20BI%20-%203.xlsx

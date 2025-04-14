@@ -1,0 +1,44 @@
+### Funções Avançadas de Manipulação de Dados com Pandas
+
+1. pd.ExcelFile() - Cria um objeto para interagir com um arquivo Excel sem carregar completamente os dados, útil para inspecionar planilhas disponíveis.
+2. pd.read_excel() - Carrega uma planilha específica de um arquivo Excel diretamente em um DataFrame.
+3. .copy() - Gera uma cópia independente do DataFrame, permitindo manipulações sem alterar o original.
+4. .dtypes - Retorna os tipos de dados de cada coluna, crucial para o entendimento dos dados.
+5. .drop() - Remove especificamente linhas ou colunas por índice ou nome.
+6. .reset_index() - Transforma o índice em uma coluna regular e redefine o índice para o padrão numérico.
+7. .dropna() - Elimina linhas ou colunas que contêm qualquer valor NaN, com critérios flexíveis para escolha.
+8. .astype() - Converte o tipo de dados de uma coluna para um tipo especificado, como float, int ou str.
+9. pd.to_numeric() - Converte valores para tipos numéricos, tratando não numéricos com 'coerce'.
+10. .apply() - Aplica uma função especificada ao longo das colunas ou linhas de um DataFrame.
+11. .replace() - Substitui valores em um DataFrame conforme especificado por um dicionário ou parâmetros.
+12. .melt() - Reorganiza o DataFrame de um formato largo para longo, fundindo colunas em uma única coluna de valores.
+13. .str.split() - Divide elementos de string em várias colunas ou listas baseadas em um delimitador.
+14. pd.to_datetime() - Converte strings para datetime, facilitando o trabalho com datas e horas.
+15. .fillna() - Preenche valores NaN com um valor especificado ou baseado em um método como propagação para frente ou para trás.
+16. to_excel() - Salva o DataFrame em um arquivo Excel, com opções para nomear planilhas e configurar outras opções de exportação.
+17. .sort_values() - Ordena o DataFrame por uma ou mais colunas, permitindo ordenação ascendente ou descendente.
+
+### Outras Funções Essenciais
+
+18. .query() - Permite filtrar um DataFrame usando uma expressão de consulta.
+19. .pivot() - Cria uma tabela pivotada do DataFrame original para reorganizar dados.
+20. .groupby() - Agrupa dados por uma ou mais colunas e permite aplicar funções de agregação.
+21. .unique() - Encontra valores únicos em uma coluna.
+22. .nunique() - Conta valores únicos em colunas.
+23. .merge() - Combina dois DataFrames baseado em colunas ou índices comuns.
+24. .concat() - Concatena dois ou mais DataFrames ao longo de um eixo específico.
+25. .get_dummies() - Converte variáveis categóricas em variáveis dummy/indicadoras.
+26. .corr() - Calcula a correlação entre colunas em um DataFrame.
+27. .eval() - Avalia expressões de string com dados em DataFrames de forma eficiente.
+28. .to_csv() - Exporta um DataFrame para um arquivo CSV.
+29. .read_csv() - Lê um arquivo CSV e o converte em um DataFrame.
+30. .set_index() - Define uma coluna do DataFrame como índice.
+31. .loc[], .iloc[] - Permite seleção por rótulo ou posição.
+32. .at[], .iat[] - Acesso rápido a um único valor para uma linha/coluna usando índices.
+33. .isna() - Identifica valores ausentes em um DataFrame.
+34. .notna() - Identifica valores não ausentes.
+35. .clip() - Limita os valores em um DataFrame a determinados limiares.
+36. .rank() - Classifica as entradas de um DataFrame sem ordená-las.
+37. .sample() - Seleciona uma amostra aleatória de itens de um DataFrame.
+38. .squeeze() - Reduz a dimensionalidade do DataFrame para uma Série, se aplicável.
+39. .memory_usage() - Retorna o uso de memória de cada coluna em bytes.

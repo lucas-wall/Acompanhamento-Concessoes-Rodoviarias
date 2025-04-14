@@ -1,0 +1,50 @@
+REGIÃO
+CONCESSÃO
+INTERVENÇÃO
+Ações
+Concessões
+Concessão
+Executor
+Extensão (km)
+Etapa
+Situação
+Região
+Ano do Leilão
+Data Início
+Prazo (Anos)
+Ano da Concessão
+
+PAVIMENTAÇÃO
+#118DFF
+
+DUPLICAÇÃO
+#12239E
+
+OAE
+#E66C37
+
+CONTORNO
+#6B007B
+
+FX ADICIONAL
+#E044A7
+
+TERCEIRA FAIXA
+#744EC2
+
+
+RISCOS
+Dispensado
+#12239E
+
+Obtida
+#27AB60
+
+Pendente
+#D9B300
+
+Em analise
+#B73F3F
+
+(Em branco)
+#AB9A9A

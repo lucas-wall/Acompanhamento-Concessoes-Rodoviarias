@@ -1,0 +1,113 @@
+% Exe/Plan Km = sum('Todas Tabelas'[(km)% EXEC])/sum('Todas Tabelas'[(km)% PLAN])
+
+% Exec./ Plan. Fin = sum('Todas Tabelas'[FINANCEIRO (R$)])/(SUM('Todas Tabelas'[FINANCEIRO PLAN (R$)])+0.0001)
+
+Dias Percorridos (Ano da Concessão) = VALUE(TODAY()-MAX('Todas Tabelas'[DATA DE INÍCIO]))/365
+
+% Tempo Contrato = [Dias Percorridos (Ano da Concessão)]/(SUM('Todas Tabelas'[PRAZO (anos)]))
+
+COLUNA
+Ações (PER) = IF('Todas Tabelas'[PLANILHA] = "PER",'Todas Tabelas'[Descrição]&" - "&'Todas Tabelas'[Atributo.1])
+
+Avanço Físico = sum('Todas Tabelas'[(km)% PLAN])-SUM('Todas Tabelas'[(km)% EXEC])
+
+Índice de Desempenho = 
+SUMX(
+    VALUES('Todas Tabelas'[Atributo.1]),
+    SWITCH(
+        TRUE(),
+        'Todas Tabelas'[Atributo.1] = "PAVIMENTAÇÃO", [% Exe/Plan Km] * 0.20,
+        'Todas Tabelas'[Atributo.1] = "DUPLICAÇÃO", [% Exe/Plan Km] * 0.30,
+        'Todas Tabelas'[Atributo.1] = "OAE", [% Exe/Plan Km] * 0.30,
+        'Todas Tabelas'[Atributo.1] = "CONTORNO", [% Exe/Plan Km] * 0.10,
+        'Todas Tabelas'[Atributo.1] = "FX ADICIONAL", [% Exe/Plan Km] * 0.05,
+        'Todas Tabelas'[Atributo.1] = "TERCEIRA FAIXA", [% Exe/Plan Km] * 0.05,
+        0
+    )
+)
+
+COLUNA
+Intervenções Ord = 
+SWITCH(
+    'Todas Tabelas'[Atributo.1],
+    "PAVIMENTAÇÃO", 1,
+    "DUPLICAÇÃO", 2,
+    "OAE", 3,
+    "CONTORNO", 4,
+    "FX ADICIONAL", 5,
+    "TERCEIRA FAIXA", 6,
+    BLANK()  // Retorna em branco ou outro valor padrão se nenhum dos casos acima for atendido
+)
+
+
+
+Inv Plan (em mi) = sum('Todas Tabelas'[FINANCEIRO PLAN (R$)])/1000000
+
+Invest. (bi R$) = ROUND((SUM('Todas Tabelas'[FINANCEIRO (R$)])/1000000000),1)
+
+Invest. Plan. (mi R$) = ROUND((SUM('Todas Tabelas'[FINANCEIRO PLAN (R$)])/1000000000),1)
+
+Medida Km PLANEJADO = 
+    IF(SELECTEDVALUE('Todas Tabelas'[PLANILHA]) = "PER",sum('Todas Tabelas'[(km)%]),
+    IF(SELECTEDVALUE('Todas Tabelas'[PLANILHA]) = "META",sum('Todas Tabelas'[(km)% PLAN]),
+    IF(SELECTEDVALUE('Todas Tabelas'[PLANILHA]) = "A EXECUTAR",sum('Todas Tabelas'[(km)%])
+    )))
+
+Medida R$ PLANEJADO = 
+    IF(SELECTEDVALUE('Todas Tabelas'[PLANILHA]) = "PER",sum('Todas Tabelas'[FINANCEIRO (R$)]),
+    IF(SELECTEDVALUE('Todas Tabelas'[PLANILHA]) = "META",sum('Todas Tabelas'[FINANCEIRO PLAN (R$)]),
+    IF(SELECTEDVALUE('Todas Tabelas'[PLANILHA]) = "A EXECUTAR",sum('Todas Tabelas'[FINANCEIRO (R$)])
+    )))/1000000
+
+COLUNA
+Período Ord = 
+SWITCH(
+    'Todas Tabelas'[Atributo.2],
+    "Até 2022", 1,
+    "2023", 2,
+    "2024", 3,
+    "2025", 4,
+    "2026", 5,
+    "Pós 2026", 6,
+    BLANK()  // Retorna em branco ou outro valor padrão se nenhum dos casos acima for atendido
+)
+
+Total de Licenças = 
+SUMX(
+    'RISCOS', 
+    IF(NOT(ISBLANK('RISCOS'[LI])), 1, 0) +
+    IF(NOT(ISBLANK('RISCOS'[LO])), 1, 0) +
+    IF(NOT(ISBLANK('RISCOS'[LP])), 1, 0)
+)
+
+Licenças em Aberto = 
+SUMX(
+    'RISCOS', 
+    IF('RISCOS'[LP] IN {"Pendente", "Em análise"}, 1, 0) +
+    IF('RISCOS'[LI] IN {"Pendente", "Em análise"}, 1, 0) +
+    IF('RISCOS'[LO] IN {"Pendente", "Em análise"}, 1, 0)
+)
+
+Maior Risco = 
+VAR EmpreendimentoAtual = SELECTEDVALUE('RISCOS'[EMPREENDIMENTO])
+VAR TabelaAgregada = 
+    SUMMARIZE(
+        FILTER('RISCOS', 'RISCOS'[EMPREENDIMENTO] = EmpreendimentoAtual),
+        'RISCOS'[Risco Principal],
+        "Contagem", COUNT('RISCOS'[Risco Principal])
+    )
+VAR MaiorRisco = TOPN(
+    1, 
+    TabelaAgregada, 
+    [Contagem], 
+    DESC
+)
+VAR Resultado = MAXX(MaiorRisco, 'RISCOS'[Risco Principal])
+RETURN
+    Resultado
+
+
+
+
+
+
